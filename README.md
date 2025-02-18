@@ -419,7 +419,7 @@ A form collects user input. The default behavior of all buttons in the form is t
 
 #### Example:
 ```html
-<form action="submit.php" method="POST">
+<form action="submit.php">
 
   <label for="name">Name:</label>
   <input type="text" id="name" name="name">
