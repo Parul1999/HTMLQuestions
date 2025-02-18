@@ -3,11 +3,23 @@
 
 ---
 
-### **1. What is HTML?**
+### **1. What is HTML and what is its latest version?**
 **HTML (HyperText Markup Language)** is the standard language for creating web pages. It provides structure to a webpage using elements and tags.
+ It is **not a software** but a **markup language** that is interpreted by web browsers.  
+Modern browsers (like Chrome, Firefox, Edge) **already support** it, so there is **no need to install** anything separately.  
+
 
 - **HyperText**: Text linked to other documents.
 - **Markup Language**: Uses tags to define elements.
+Markup means - How to present data
+
+ HTML5 is the latest version of **HTML (HyperText Markup Language)**. It introduces new features for **better multimedia support, storage management, and improved semantics**.
+
+ HTML5 includes new features such as:  
+✅ **Multimedia support** – `<audio>` and `<video>` tags.  
+✅ **Storage mechanisms** – `localStorage` and `sessionStorage`.  
+✅ **Improved forms** – New input types like `email`, `date`, and `color`.  
+✅ **Canvas API** – Allows drawing graphics without plugins.  
 
 Example:
 ```html
@@ -50,7 +62,7 @@ Example:
 ### **4. Explain the structure of an HTML document.**
 ```html
 <!DOCTYPE html>  <!-- Declares HTML5 -->
-<html>
+<html> <!-- root -->
   <head>
     <title>My Page</title>  <!-- Page title (shown on the browser tab) -->
   </head>
@@ -62,7 +74,7 @@ Example:
 ```
 - `<!DOCTYPE html>`: Declares HTML5.
 - `<html>`: Root element.
-- `<head>`: Contains metadata.
+- `<head>`: Contains metadata. Metadata means data for data
 - `<body>`: Contains visible content.
 
 ---
@@ -72,7 +84,7 @@ Example:
 |-----------------|----------------------|----------------|
 | Takes full width? | Yes | No |
 | Starts on a new line? | Yes | No |
-| Example | `<div>`, `<p>`, `<h1>` | `<span>`, `<a>`, `<strong>` |
+| Example | `<div>`, `<p>`, `<h1>`,`<body>` | `<span>`, `<a>`, `<strong>`,`<img>` |
 
 Example:
 ```html
@@ -124,6 +136,7 @@ Example:
 <img src="image.jpg" alt="An image">
 <br>
 <input type="text" placeholder="Enter name">
+<hr>
 ```
 
 ---
@@ -137,7 +150,7 @@ Example:
 
 Example:
 ```html
-<div>
+<div><!-- Content Division Element -->
   <h1>Title</h1>
   <p>This is a paragraph.</p>
 </div>
@@ -148,29 +161,38 @@ Example:
 ---
 
 ### **10. What are semantic HTML elements?**
-**Semantic elements** give meaning to content.
+Tags are of two types :
+- **Semantic elements** -  give meaning to content.
+- **Non-Semantic elements** - do not provide any information about their content.
 
-Examples:
+
+Examples for Semantic:
 - `<header>`: Defines a page header.
 - `<nav>`: Defines navigation links.
 - `<article>`: Defines an article.
 - `<footer>`: Defines the footer.
+- `<main>`: Defines the main content of the document.
+- `<section>`: Defines a section in a document. 
 
 Example:
 ```html
-<header>
-  <h1>Website Title</h1>
-</header>
-<nav>
-  <a href="#">Home</a> | <a href="#">About</a>
-</nav>
-<article>
-  <h2>Article Title</h2>
-  <p>Article content...</p>
-</article>
-<footer>
-  <p>Copyright 2025</p>
-</footer>
+<main>
+  <header>
+    <h1>Website Title</h1>
+  </header>
+  <nav>
+    <a href="#">Home</a> | <a href="#">About</a>
+  </nav>
+  <section>
+    <article>
+      <h2>Article Title</h2>
+      <p>Article content...</p>
+    </article>
+  </section>
+  <footer>
+    <p>Copyright 2025</p>
+  </footer>
+</main>
 ```
 
 ---
@@ -267,7 +289,7 @@ Unordered List:
 ### **18. What are the different input types in HTML5?**
 Some common input types:
 ```html
-<input type="text">
+<input type="text"> <!-- By default -->
 <input type="password">
 <input type="email">
 <input type="number">
@@ -305,6 +327,10 @@ Example:
 ### **21. How do you create a table in HTML? Explain the `<tr>`, `<td>`, and `<th>` tags.**
 A table in HTML consists of:
 - `<table>`: Defines the table.
+- `<caption>`: Provides a title for the table.
+- `<thead>`: Groups the header content.
+- `<tbody>`: Groups the body content.
+- `<tfoot>`: Groups the footer content.
 - `<tr>` (Table Row): Defines a row.
 - `<th>` (Table Header): Defines header cells.
 - `<td>` (Table Data): Defines data cells.
@@ -312,18 +338,29 @@ A table in HTML consists of:
 Example:
 ```html
 <table border="1">
-  <tr>
-    <th>Name</th>
-    <th>Age</th>
-  </tr>
-  <tr>
-    <td>Alice</td>
-    <td>25</td>
-  </tr>
-  <tr>
-    <td>Bob</td>
-    <td>30</td>
-  </tr>
+  <caption>Person Information</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alice</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Name</td>
+      <td>Age</td>
+    </tr>
+  </tfoot>
 </table>
 ```
 
@@ -350,19 +387,89 @@ Example:
 
 ### **23. How do you create a form in HTML? What are the different form elements?**
 A form collects user input.
+The default beghaviour of all buttons in the form is to submit data , to avoid that we can give the type as *button* . The data that is submitted goes to whatever is mentioned in the form's action , in the example its submit.php
 
 Example:
 ```html
 <form action="submit.php" method="POST">
+
   <label for="name">Name:</label>
   <input type="text" id="name" name="name">
-  
+
   <label for="email">Email:</label>
   <input type="email" id="email" name="email">
-  
-  <input type="submit" value="Submit">
+
+  <!-- Submit button: Submits the form data -->
+  <!-- If this button is placed outside the form, it will not submit the form -->
+  <button type="submit">Submit</button>
+
+  <!-- Reset button: Resets all form fields in the form to their default values, in this case, empty (i.e., no value) -->
+  <button type="reset">Reset</button>
+
+  <!-- Button element: Can be used for custom actions with JavaScript -->
+  <button type="button" onclick="alert('Button clicked!')">Click Me</button>
+
 </form>
 ```
+Certainly! Here is a clearer and more structured explanation with an example of how the URL will look when the `name` attribute is included or skipped:
+
+### **23. How do you create a form in HTML? What are the different form elements?**
+
+A form collects user input. The default behavior of all buttons in the form is to submit data. To avoid that, we can give the type as `button`. The data that is submitted goes to whatever is mentioned in the form's action, in the example it's `submit.php`.
+
+#### Example:
+```html
+<form action="submit.php" method="POST">
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name">
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email">
+
+  <!-- Submit button: Submits the form data -->
+  <!-- If this button is placed outside the form, it will not submit the form -->
+  <button type="submit">Submit</button>
+
+  <!-- Reset button: Resets all form fields in the form to their default values, in this case, empty (i.e., no value) -->
+  <button type="reset">Reset</button>
+
+  <!-- Button element: Can be used for custom actions with JavaScript -->
+  <button type="button" onclick="alert('Button clicked!')">Click Me</button>
+
+</form>
+```
+
+**Important Note:** On clicking the submit button, it sends data to `submit.php` with the name of the attribute and then the value of the attribute, as in our case:
+
+- If the `name` attribute is included:
+  ```
+  submit.php?name=John&email=john@example.com
+  <!-- Consider this data was entered by the user -->
+  ```
+
+- If the `name` attribute is skipped:
+  ```
+  submit.php?email=john@example.com
+  ```
+
+This is not safe in case of passwords , for that we need to use POST method - more about it would be in javascript.
+
+We do have the option to use `input type='button'` or `input type='submit'`, but it is not advisable.
+
+#### Common elements:
+- `<input>` (text, email, password)
+- `<textarea>` (multi-line text) - By default takes up 2 rows and 10 columns 
+- `<select>` (dropdown)
+- `<button>` (clickable button)
+- `<label>` (text label)
+
+---
+
+This explanation provides a clear and structured overview of how to create a form in HTML, including the different form elements and their purposes. It also clarifies the behavior of buttons within the form and the importance of the `name` attribute for form submission.
+
+Similar code found with 1 license type
+
 Common elements:
 - `<input>` (text, email, password)
 - `<textarea>` (multi-line text)
@@ -410,7 +517,7 @@ Example:
 <label for="name">Full Name:</label>
 <input type="text" id="name" name="name">
 ```
-- The `for` attribute links to `id="name"`.
+- The `for` attribute links to `id="name"` , which means it creates a relation i.e if clicked on the text it will take you to the input box.
 
 ---
 
@@ -435,6 +542,8 @@ Example:
 <label><input type="radio" name="gender" value="male"> Male</label>
 <label><input type="radio" name="gender" value="female"> Female</label>
 ```
+
+The `name` attribute groups elements together. For example, if one radio button has `name="gender1"` and another has `name="gender2"`, they will be treated as separate groups. The `value` attribute specifies the default value of the element.
 
 ---
 
@@ -712,7 +821,7 @@ Example:
 Example:
 ```html
 <p>Line 1<br>Line 2</p>
-<hr>
+<hr><!-- Horizontal Rule Element -->
 ```
 
 ---
@@ -728,16 +837,7 @@ Favicons appear in the browser tab.
    ```
 3. Ensure the file is in the **root directory** or a specific path.
 
----
 
-## 🎯 **Beginner-Level HTML Summary**
-✅ **HTML Basics:** Tags, attributes, elements.  
-✅ **Forms & Inputs:** Checkbox, radio, required fields.  
-✅ **Tables & Lists:** `<table>`, `<ul>`, `<ol>`.  
-✅ **Multimedia:** Embedding images, videos, and audio.  
-✅ **SEO & Accessibility:** Meta tags, semantic elements.  
-
-This concludes **Beginner-Level HTML Questions with Explanations**. 🚀
 
 ### **Intermediate-Level HTML Questions and Answers (Detailed Explanations)**  
 
@@ -853,7 +953,7 @@ Displays calculated results from JavaScript.
 ### **60. What are the advantages of using semantic elements?**  
 ✅ Improves **SEO**  
 ✅ Enhances **accessibility**  
-✅ Better **structure**  
+✅ Better **structure**  and **readable**
 
 #### **Example:**
 ```html
@@ -1305,6 +1405,7 @@ html, body {
 <meter value="70" min="0" max="100"></meter>
 <progress value="50" max="100"></progress>
 ```
+value signifies the default valye of the range
 
 ---
 
@@ -1720,14 +1821,14 @@ Both **HTML entities** and **escape characters** are used to **represent special
 
 ### **1️⃣ HTML Entities**
 🔹 **Definition:**  
-HTML **entities** are **named or numeric codes** used to represent characters that may **conflict** with HTML syntax.
+HTML **entities** are **named or numeric codes** used to represent characters that may **conflict** with HTML syntax. Its interpreted by the browser
 
 🔹 **Purpose:**  
 - To display **reserved characters** (`<`, `>`, `&`, `"`, `'`).
 - To **represent special symbols** (©, €, ™, →).
 - To insert **non-breaking spaces** (`&nbsp;`).
 
-🔹 **Examples:**
+🔹 **Examples:** It starts with **&** and ends with **;**
 | Symbol | HTML Entity Code | Description |
 |--------|----------------|-------------|
 | `<`    | `&lt;`         | Less than |
@@ -1810,21 +1911,35 @@ console.log(myString);
 ```
 ✔ **Output in Console:** She said, `"Hello!"` and smiled.
 
----
-
-### **🎯 Summary**
-✅ **HTML Entities**: Used in **HTML** to display special characters (`&lt;`, `&copy;`, `&euro;`).  
-✅ **Escape Characters**: Used in **JavaScript & JSON** to handle **quotes, new lines, and special characters** (`\"`, `\'`, `\\`).  
-✅ **Entities prevent breaking HTML, Escape characters prevent breaking JavaScript strings.**  
 
 ---
-Would you like examples of **how they work together** in **HTML + JavaScript**? 😊
+
+### **121. What is meant by 'HTML or Living Standard'?**  
+**Answer:**  
+- The **HTML Standard** refers to the set of rules that define how HTML should be structured and processed by browsers.  
+- It is **maintained by the WHATWG (Web Hypertext Application Technology Working Group)** as a **living standard** that is continuously updated.  
+
+✅ **Another Name for HTML Standard:**  
+HTML Living Standard (Maintained by **WHATWG**).
+
 ---
 
-## **🎯 Final Takeaways**
-- ✅ **`<template>`**: Loads reusable dynamic content.
-- ✅ **`<details>` & `<summary>`**: Expandable sections.
-- ✅ **CSS `:checked`**: Toggles visibility.
-- ✅ **`contenteditable`**: Editable fields.
+### **122. How does HTML code interact with web browsers like Chrome?**  
+**Answer:**  
+- When an HTML file is loaded, **Chrome's rendering engine (Blink), Firefox uses Gecko.** reads and interprets the HTML.  
+- It then constructs a **DOM tree**, applies **CSS**, executes **JavaScript**, and **renders the page**.  
 
----
+✅ **Example of HTML Rendering in Chrome:**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+</body>
+</html>
+```
+- Chrome **reads** the above code and **displays the page with a heading**.
+
