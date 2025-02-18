@@ -450,7 +450,7 @@ A form collects user input. The default behavior of all buttons in the form is t
 
 - If the `name` attribute is skipped:
   ```
-  submit.php?email=john@example.com
+  submit.php?
   ```
 
 This is not safe in case of passwords , for that we need to use POST method - more about it would be in javascript.
@@ -464,18 +464,6 @@ We do have the option to use `input type='button'` or `input type='submit'`, but
 - `<button>` (clickable button)
 - `<label>` (text label)
 
----
-
-This explanation provides a clear and structured overview of how to create a form in HTML, including the different form elements and their purposes. It also clarifies the behavior of buttons within the form and the importance of the `name` attribute for form submission.
-
-Similar code found with 1 license type
-
-Common elements:
-- `<input>` (text, email, password)
-- `<textarea>` (multi-line text)
-- `<select>` (dropdown)
-- `<button>` (clickable button)
-- `<label>` (text label)
 
 ---
 
@@ -489,7 +477,7 @@ HTML5 introduced new input types:
 <input type="tel">          <!-- Phone number -->
 <input type="number">       <!-- Numeric input -->
 <input type="date">         <!-- Date picker -->
-<input type="datetime-local"> <!-- Date and time -->
+<input type="time">         <!-- Time picker -->
 <input type="color">        <!-- Color picker -->
 <input type="file">         <!-- File upload -->
 ```
@@ -561,7 +549,7 @@ Example:
 ---
 
 ### **30. What is the `<fieldset>` and `<legend>` tag in forms?**
-- `<fieldset>`: Groups form elements.
+- `<fieldset>`: Groups form elements. If this is not used the outline in the iamge won't come into picture.
 - `<legend>`: Provides a title.
 
 Example:
@@ -572,7 +560,7 @@ Example:
   <label>Email: <input type="email"></label>
 </fieldset>
 ```
-
+![alt text](image.png)
 ---
 
 ### **31. How do you make a field required in an HTML form?**
@@ -611,6 +599,7 @@ Use `<input type="submit">` or `<button>`.
 Example:
 ```html
 <input type="submit" value="Send">
+<!-- By default the text in the button is Submit if value is not mentioned and this way is not advised -->
 <button type="submit">Submit</button>
 ```
 
@@ -633,14 +622,39 @@ Example:
 ---
 
 ### **36. How do you include JavaScript in an HTML document?**
-Use `<script>`.
+Here’s a **detailed comparison table** with all **four scenarios** of placing JavaScript in an HTML document, including examples and recommendations. 🚀  
 
-Example:
+---
+| Scenario | Behavior | Example | When to Use |
+|----------|----------|---------|-------------|
+| **1️⃣ Inside `<head>` (Without `defer` or `async`) ❌** | ❌ **Blocking** – Stops HTML parsing until the script loads and executes. | ```html <head> <script src="script.js"></script> </head> ``` | ❌ **Not recommended** – Causes delays in rendering. Only use if JavaScript **must execute before the page loads** (rare case). |
+| **2️⃣ Inside `<head>` with `defer` ✅** | ✅ **Non-blocking** – Loads script **in parallel** with HTML parsing but executes **only after** the page is fully parsed. | ```html <head> <script src="script.js" defer></script> </head> ``` | ✅ **Best for scripts that modify the DOM** – Ensures JavaScript runs **after the page is ready**. |
+| **3️⃣ Inside `<head>` with `async` 🚀** | 🚀 **Fast but unordered execution** – Loads in parallel and executes **immediately when ready**, without waiting for HTML parsing to finish. | ```html <head> <script src="script.js" async></script> </head> ``` | ✅ **For independent scripts like ads, analytics, tracking (Google Analytics, Facebook Pixel, etc.)** – Doesn’t depend on DOM. ❌ **Not for DOM-dependent scripts.** |
+| **4️⃣ At the End of `<body>` ✅ (Best for most cases)** | ✅ **Non-blocking** – Ensures the **HTML loads first**, then runs JavaScript. | ```html <body> <p>Welcome</p> <script src="script.js"></script> </body> ``` | ✅ **Best for most cases** – Ensures that the content is **fully loaded** before running JavaScript. |
+
+
+
+Example at the end of `<body>`:
 ```html
-<script>
-  alert("Hello, World!");
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+</head>
+<body>
+  <p>Welcome to my page.</p>
+  <script>
+    alert("Hello, World!");
+  </script>
+</body>
+</html>
 ```
+
+- **Use `defer`** → For scripts that modify the DOM. (Recommended ✅)  
+- **Use `async`** → For third-party scripts like analytics, ads, or tracking.  
+- **Place `<script>` at the end of `<body>`** → If neither `async` nor `defer` is used.  
+- ❌ **Avoid placing scripts in `<head>` without `defer` or `async`** unless absolutely necessary.  
+
 
 ---
 
