@@ -2148,3 +2148,481 @@ HTML Living Standard (Maintained by **WHATWG**).
 ```
 - Chrome **reads** the above code and **displays the page with a heading**.
 
+
+## SCENARIO BASED QUESTIONS 
+
+---
+
+### **Q1: Your website takes too long to load. What steps will you take to improve performance?**  
+✅ **Solution: Optimize HTML structure and assets**  
+
+🔹 **Key Fixes:**  
+- Use **`defer` or `async`** for script loading.  
+- Optimize images with **WebP/AVIF** formats.  
+- Implement **lazy loading (`loading="lazy"`)** for images and iframes.  
+- Reduce **DOM depth** and remove unnecessary elements.  
+- Enable **gzip or Brotli compression** on the server.  
+- Use a **Content Delivery Network (CDN)** for faster asset loading.  
+
+**Example:**
+```html
+<img src="image.jpg" loading="lazy" alt="Optimized Image">
+<script src="script.js" defer></script>
+```
+
+---
+
+### **Q2: Users complain that images are loading slowly. How will you optimize them?**  
+✅ **Solution: Use modern image formats & responsive loading**  
+
+🔹 **Key Fixes:**  
+- Convert images to **WebP/AVIF** (smaller size, better quality).  
+- Use **`srcset`** and **`sizes`** for responsive images.  
+- Load images **lazily** using `loading="lazy"`.  
+- Use a **CDN** to deliver images faster.  
+
+**Example:**
+```html
+<img src="small.jpg" 
+     srcset="large.jpg 1024w, medium.jpg 768w, small.jpg 480w" 
+     sizes="(max-width: 768px) 100vw, 50vw" 
+     loading="lazy" 
+     alt="Optimized Image">
+```
+
+---
+
+### **Q3: You need to prioritize loading critical resources first. How will you achieve this in HTML?**  
+✅ **Solution: Use `preload`, `preconnect`, and proper script placement**  
+
+🔹 **Key Fixes:**  
+- **`preload`** important assets (CSS, fonts).  
+- **`preconnect`** to external domains.  
+- Load JavaScript **asynchronously** using `async` or `defer`.  
+
+**Example:**
+```html
+<!-- Preload fonts -->
+<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preconnect to an external API -->
+<link rel="preconnect" href="https://api.example.com">
+```
+
+---
+
+### **Q4: The browser is rendering unused CSS and JavaScript. How do you optimize this?**  
+✅ **Solution: Remove unused code and defer loading non-essential scripts**  
+
+🔹 **Key Fixes:**  
+- Use **Chrome DevTools > Coverage Tab** to detect unused CSS/JS.  
+- Implement **CSS code splitting** to load only required styles.  
+- Use **lazy-loaded scripts** (`defer`, `async`).  
+
+**Example:**
+```html
+<link rel="stylesheet" href="critical.css">
+<link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+```
+✅ **Critical CSS loads first, and full CSS loads later.**  
+
+---
+
+### **Q5: You need to lazy-load images and iframes to improve page speed. How do you do this in HTML?**  
+✅ **Solution: Use `loading="lazy"` in `<img>` and `<iframe>`**  
+
+🔹 **Key Fixes:**  
+- Set **`loading="lazy"`** for non-critical images and videos.  
+- Use **`fetchpriority="high"`** for important images.  
+
+**Example:**
+```html
+<img src="image.jpg" loading="lazy" alt="Lazy Loaded Image">
+<iframe src="video.html" loading="lazy"></iframe>
+```
+✅ **Reduces page load time significantly.**  
+
+---
+
+### **Q6: Your website is not ranking well on Google. What HTML changes will you make to improve SEO?**  
+✅ **Solution: Improve HTML structure, metadata, and accessibility**  
+
+🔹 **Key Fixes:**  
+- Use **semantic HTML tags** (`<header>`, `<article>`, `<section>`).  
+- Add proper **meta tags** (`title`, `description`, `robots`).  
+- Implement **structured data (schema.org)** for better indexing.  
+- Optimize images with **descriptive `alt` text**.  
+
+**Example:**
+```html
+<meta name="description" content="Best HTML interview questions and answers for developers">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://example.com/interview-questions">
+```
+
+---
+
+### **Q7: You need to make a webpage accessible for screen readers. How do you do it?**  
+✅ **Solution: Use ARIA attributes and semantic elements**  
+
+🔹 **Key Fixes:**  
+- Use **ARIA roles (`role="navigation"`)** to define page sections.  
+- Use **`aria-label`** and **`aria-labelledby`** for clarity.  
+- Ensure all **images have `alt` text**.  
+
+**Example:**
+```html
+<nav role="navigation">
+    <ul>
+        <li><a href="/home" aria-label="Go to Home Page">Home</a></li>
+    </ul>
+</nav>
+```
+✅ **Helps screen readers navigate better.**  
+
+---
+
+### **Q8: A user complains they can't navigate your website using the keyboard. How do you fix it?**  
+✅ **Solution: Ensure focusability and proper keyboard navigation**  
+
+🔹 **Key Fixes:**  
+- Use **`tabindex="0"`** to make elements focusable.  
+- Ensure buttons and links are **accessible using the `Enter` key**.  
+
+**Example:**
+```html
+<button tabindex="0">Click Me</button>
+<a href="#" tabindex="0">Focusable Link</a>
+```
+✅ **Now users can navigate using the `Tab` key.**  
+
+---
+
+### **Q9: The website should support high-contrast mode for visually impaired users. How do you implement this?**  
+✅ **Solution: Use CSS media queries for accessibility**  
+
+🔹 **Key Fixes:**  
+- Use **`prefers-contrast: more`** for high-contrast mode.  
+
+**Example:**
+```css
+@media (prefers-contrast: more) {
+  body {
+    background: black;
+    color: yellow;
+  }
+}
+```
+✅ **Automatically adapts for users with visual impairments.**  
+
+---
+
+### **Q10: You need to implement ARIA attributes for better accessibility. Where and how do you use them?**  
+✅ **Solution: Use ARIA roles to define page structure**  
+
+🔹 **Key Fixes:**  
+- **`aria-hidden="true"`** hides decorative elements.  
+- **`aria-live="polite"`** for dynamic content updates.  
+
+**Example:**
+```html
+<div role="alert" aria-live="polite">New message received!</div>
+```
+✅ **Screen readers will announce new messages.**  
+
+---
+
+### **📌 Scenario-Based HTML Interview Questions & Answers (Set 2: Forms, JavaScript & Security)**  
+Here’s the **next set of 10 interview questions with expert answers** to ensure you’re fully prepared for your HTML interview. 🚀  
+
+---
+
+### **Q11: Your form is not submitting data correctly. What could be wrong?**  
+✅ **Solution: Check form structure, attributes, and JavaScript validation**  
+
+🔹 **Possible Issues & Fixes:**  
+| Issue | Fix |
+|-------|-----|
+| **Missing `name` attributes** | Ensure all form fields have a `name`. |
+| **Incorrect `method` (GET instead of POST)** | Use `method="post"` for secure data transfer. |
+| **JavaScript preventing form submission** | Check for event listeners like `event.preventDefault()`. |
+| **CORS policy blocking the request** | Ensure server allows cross-origin form submissions. |
+
+**Example:**
+```html
+<form action="/submit" method="post">
+    <input type="text" name="username" required>
+    <button type="submit">Submit</button>
+</form>
+```
+
+---
+
+### **Q12: You need to auto-fill form fields with browser suggestions. How do you do this?**  
+✅ **Solution: Use the `autocomplete` attribute**  
+
+🔹 **Key Fixes:**  
+- Use **`autocomplete="on"`** to enable autofill.  
+- Use **specific values** like `"email"`, `"password"`, `"street-address"`.
+
+**Example:**
+```html
+<input type="email" name="email" autocomplete="email">
+```
+✅ **Helps users quickly fill in forms using saved data.**  
+
+---
+
+### **Q13: A user complains that the form does not validate input properly. How do you fix it using HTML?**  
+✅ **Solution: Use built-in form validation attributes**  
+
+🔹 **Key Fixes:**  
+- Use **`required`** to ensure input is filled.  
+- Use **`pattern`** for regex validation.  
+- Use **`min`, `max`, `maxlength`** for number inputs.  
+
+**Example:**
+```html
+<input type="text" name="username" required pattern="[A-Za-z]+" title="Only letters allowed">
+```
+✅ **Prevents incorrect inputs without JavaScript.**  
+
+---
+
+### **Q14: How do you prevent a form from submitting when the user presses "Enter"?**  
+✅ **Solution: Disable form submission on Enter key**  
+
+🔹 **Fix using JavaScript:**
+```html
+<form onkeydown="return event.key !== 'Enter';">
+    <input type="text" name="username">
+</form>
+```
+✅ **Stops accidental submissions.**  
+
+---
+
+### **Q15: You need to ensure that the password input field does not get saved in the browser’s autofill. How do you do this?**  
+✅ **Solution: Use `autocomplete="new-password"`**  
+
+**Example:**
+```html
+<input type="password" name="password" autocomplete="new-password">
+```
+✅ **Prevents browsers from auto-filling passwords for security reasons.**  
+
+---
+
+### **Q16: A third-party script is blocking your webpage's rendering. How do you fix this?**  
+✅ **Solution: Load the script asynchronously or defer execution**  
+
+🔹 **Fix using `async` or `defer`:**
+```html
+<script src="analytics.js" async></script>
+<script src="app.js" defer></script>
+```
+✅ **Prevents blocking the page while loading.**  
+
+---
+
+### **Q17: You need to execute JavaScript only after the entire DOM is loaded. How do you do it?**  
+✅ **Solution: Use `DOMContentLoaded` event or `defer`**  
+
+**Example using `DOMContentLoaded`:**
+```js
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM is fully loaded!");
+});
+```
+✅ **Ensures scripts run only when the page is ready.**  
+
+---
+
+### **Q18: What is the difference between using `<script>` in the `<head>` vs. at the end of `<body>`?**  
+✅ **Solution: Script execution affects page load**  
+
+| Placement | Behavior |
+|-----------|----------|
+| **Inside `<head>`** | Blocks rendering **unless** `async` or `defer` is used. |
+| **At the end of `<body>`** | Ensures the DOM is loaded first, preventing render-blocking. |
+
+✅ **Best practice:** Use `<script defer>` inside `<head>` or place scripts before `</body>`.  
+
+---
+
+### **Q19: How do `async` and `defer` differ in script execution?**  
+✅ **Solution: `async` and `defer` change script execution behavior**  
+
+| Attribute | Behavior |
+|-----------|----------|
+| **`async`** | Loads script in parallel & executes **immediately** when ready. |
+| **`defer`** | Loads script in parallel & executes **only after the DOM is fully parsed**. |
+
+**Example:**
+```html
+<script src="analytics.js" async></script>
+<script src="app.js" defer></script>
+```
+✅ **Use `async` for third-party scripts & `defer` for site scripts.**  
+
+---
+
+### **Q20: You need to execute an inline JavaScript function when the page loads. How do you achieve this?**  
+✅ **Solution: Use `window.onload` or `DOMContentLoaded`**  
+
+**Example using `window.onload`:**
+```js
+window.onload = function() {
+    console.log("Page is fully loaded!");
+};
+```
+✅ **Ensures code executes only after everything is loaded.**  
+
+---
+
+
+### **Q21: Your website is embedding an `<iframe>`, but it does not load. What could be the issue?**  
+✅ **Solution: Check `sandbox` restrictions and CORS settings.**  
+
+🔹 **Possible Issues & Fixes:**  
+| Issue | Fix |
+|-------|-----|
+| **CORS Policy Blocking Access** | Ensure `Access-Control-Allow-Origin` is set on the embedded site. |
+| **X-Frame-Options Blocking Embedding** | Check if the site allows `iframe` embedding. |
+| **`sandbox` Attribute Restricting Actions** | Modify `sandbox="allow-scripts allow-same-origin"` to grant permissions. |
+
+**Example Fix:**
+```html
+<iframe src="https://example.com" sandbox="allow-scripts allow-same-origin"></iframe>
+```
+✅ **This allows scripts to run inside the iframe but keeps security restrictions in place.**  
+
+---
+
+
+### **Q22: How do you ensure that users cannot edit form values manually using the browser’s developer tools?**  
+✅ **Solution: Use `readonly`, `disabled`, and server-side validation.**  
+
+🔹 **Fixes:**  
+- Add **`readonly`** or **`disabled`** to prevent direct input.  
+- Always **validate data on the server** to prevent tampering.  
+
+**Example:**
+```html
+<input type="text" name="price" value="100" readonly>
+```
+✅ **This prevents users from editing prices but still sends data to the server.**  
+
+---  
+
+### **Q23: Your `<img>` elements are not displaying correctly. What could be the possible issues?**  
+✅ **Solution: Check image paths, file formats, and CORS.**  
+
+🔹 **Possible Issues & Fixes:**  
+| Issue | Fix |
+|-------|-----|
+| **Incorrect `src` Path** | Verify the file location. |
+| **Wrong File Extension** | Ensure the image format is correct. |
+| **Blocked by CORS Policy** | Ensure the server allows cross-origin image requests. |
+| **Missing `alt` Attribute** | Always provide an `alt` description. |
+
+---
+
+
+
+### **Q24: You need a custom HTML element that updates dynamically. How do you implement it?**  
+✅ **Solution: Use `attributeChangedCallback()` in Web Components**  
+
+**Example:**
+```js
+class DynamicComponent extends HTMLElement {
+  static get observedAttributes() { return ["message"]; }
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.innerHTML = `<p>${newValue}</p>`;
+  }
+}
+customElements.define("dynamic-component", DynamicComponent);
+```
+✅ **Now `<dynamic-component message="Hello"></dynamic-component>` updates dynamically when `message` changes.**  
+
+---
+
+### **Q25: How do you ensure that a custom element does not affect global styles?**  
+✅ **Solution: Use Shadow DOM (`attachShadow`)**  
+
+**Example:**
+```js
+class ShadowElement extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" }).innerHTML = `<style>p { color: red; }</style><p>Shadow DOM!</p>`;
+  }
+}
+customElements.define("shadow-element", ShadowElement);
+```
+✅ **Now styles inside the component do not affect other elements.**  
+
+---
+
+### **Q26: What is the purpose of the Shadow DOM, and when should you use it?**  
+✅ **Solution: The Shadow DOM provides encapsulation & style isolation.**  
+
+🔹 **Use it when:**  
+- You **don't want component styles to interfere** with the rest of the page.  
+- You **want a component to work independently** in any project.  
+
+✅ **Common in UI libraries like Material Design & Bootstrap.**  
+
+---
+
+### **Q27: How do you optimize HTML for faster rendering and improved page speed?**  
+✅ **Solution: Minimize blocking elements, reduce file size, and optimize loading.**  
+
+🔹 **Fixes:**  
+- Use **`defer` or `async`** for script loading.  
+- Minify **HTML, CSS, and JavaScript**. 
+
+**Example:**
+```html
+<script src="app.js" defer></script> <!-- Non-blocking script -->
+```
+✅ **Ensures scripts do not block rendering.**  
+
+---
+
+### **Q28: How does HTML’s `preload`, `prefetch`, and `preconnect` improve performance?**  
+✅ **Solution: They help prioritize resource loading.**  
+
+| Feature | Purpose |
+|---------|---------|
+| **`preload`** | Loads high-priority resources early (fonts, images). |
+| **`prefetch`** | Loads resources for future navigation. |
+| **`preconnect`** | Establishes early connections to external resources. |
+
+**Example:**
+```html
+<link rel="preload" href="styles.css" as="style">
+<link rel="preconnect" href="https://cdn.example.com">
+```
+✅ **Improves perceived performance by prioritizing important resources.**  
+ 
+
+---
+
+### **Q29: What security headers should you use to protect an HTML site?**  
+✅ **Solution: Use HTTP headers to prevent security threats.**  
+
+🔹 **Recommended Security Headers:**  
+| Header | Purpose |
+|--------|---------|
+| **`X-Frame-Options: DENY`** | Prevents Clickjacking. |
+| **`Content-Security-Policy`** | Blocks malicious scripts. |
+| **`Strict-Transport-Security`** | Enforces HTTPS connections. |
+| **`X-Content-Type-Options: nosniff`** | Prevents MIME-type sniffing. |
+
+✅ **Enhances site security against common attacks.**  
+
+---
+
+
+
