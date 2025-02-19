@@ -665,6 +665,26 @@ Example at the end of `<body>`:
 - **Place `<script>` at the end of `<body>`** → If neither `async` nor `defer` is used.  
 - ❌ **Avoid placing scripts in `<head>` without `defer` or `async`** unless absolutely necessary.  
 
+#### Noted -  The following code won't work because document.getElementById will return null as HTML is not loaded . So best to use script tag at the end of the body tag.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Component Example</title>
+    <script >
+       
+        document.getElementById("button1").addEventListener("click", function(){
+           alert("Hello World");})
+       </script>
+</head>
+<body>
+    <button id="button1">Hi</button>
+    
+</body>
+</html>
+```
 
 ---
 
@@ -1338,11 +1358,22 @@ Example:
 ---
 
 ### **79. What is the difference between `<picture>` and `<img>`?**  
-| Feature  | `<img>` | `<picture>` |
-|----------|--------|-------------|
-| Purpose | Loads a single image | Loads different images based on screen size |
-| Responsive? | No | Yes |
-| Multiple sources? | No | Yes |
+
+Both `<img>` and `<picture>` can **load multiple images** using `srcset`, but they work differently. Here's a **detailed comparison**:
+
+| Feature | `<img>` with `srcset` | `<picture>` |
+|---------|----------------|-------------|
+| **Basic Purpose** | Used for **responsive images** by defining multiple sizes in `srcset`. | Used for **advanced control**, including different image formats & art direction. |
+| **Syntax Complexity** | ✅ Simple (`<img>` tag with `srcset`). | ❌ More complex (requires multiple `<source>` elements). |
+| **Multiple Image Support?** | ✅ Yes (via `srcset`). | ✅ Yes (via multiple `<source>` tags). |
+| **Format Support (JPEG, WebP, AVIF)?** | ❌ No (only changes image sizes). | ✅ Yes (can load different formats for browser compatibility). |
+| **Best Use Case** | When you only need **size-based switching**. | When you need **format switching or completely different images for different screens**. |
+| **How the Browser Chooses the Image?** | ✅ Picks the **best size** based on screen width & pixel density. | ✅ Picks the **first matching `<source>`** from top to bottom. |
+| **Performance Impact** | ✅ Lightweight, loads only what is needed. | ❌ Slightly heavier but allows better optimization. |
+
+### **🔥 Conclusion**
+- ✅ **Use `<img>` + `srcset`** when you only need **size-based switching**.  
+- ✅ **Use `<picture>`** when you need **format switching** or **art direction (different images for different devices)**.  
 
 #### **Example:**
 ```html
@@ -1352,7 +1383,6 @@ Example:
   <img src="fallback.jpg" alt="Responsive Image">
 </picture>
 ```
-- Displays **`image-small.jpg`** on small screens and **`image-large.jpg`** on larger screens.
 
 ---
 
@@ -1366,9 +1396,10 @@ class MyElement extends HTMLElement {
     this.innerHTML = "<p>Custom HTML Element</p>";
   }
 }
+// The custom element should have '-'
 customElements.define("my-element", MyElement);
 ```
-- **Usage in HTML:**
+**Usage in HTML:**
   ```html
   <my-element></my-element>
   ```
@@ -1380,9 +1411,11 @@ customElements.define("my-element", MyElement);
 
 #### **Example:**
 ```html
-<img src="map.jpg" ismap>
+<a href="process-image.php">
+    <img src="map.jpg" ismap>
+</a>
 ```
-- Clicks on the image **send coordinates** to the server.
+- Clicks on the image **send coordinates** to the server in our case `process-image.php?200,150` , where 200,150 are random coordinates
 
 ---
 
@@ -1403,7 +1436,7 @@ Sets **focus** on an input field **automatically**.
 ```html
 <input type="text" autofocus>
 ```
-- The cursor starts inside this field.
+ The cursor starts inside this field. If there are two such inputs with autofocus , it takes to the focus that comes sequentially proir.
 
 ---
 
@@ -1435,6 +1468,7 @@ Sends a **tracking request** when the user clicks a link.
 ```html
 <a href="https://example.com" ping="https://tracker.com/log-click">Click me</a>
 ```
+Example : Ad Tracking , Affiliate Links
 
 ---
 
@@ -1445,7 +1479,7 @@ Store **extra information** inside HTML elements using `data-` attributes.
 ```html
 <button data-user="John">Click me</button>
 ```
-- Access with JavaScript:
+ Access with JavaScript:
   ```js
   let user = document.querySelector("button").dataset.user;
   console.log(user); // Output: John
@@ -1517,7 +1551,21 @@ ARIA attributes improve **accessibility for screen readers**.
 
 #### **Example:**
 ```html
-<button aria-label="Submit Form">Submit</button>
+<!-- Button with aria-label, aria-labelledby, and aria-describedby attributes -->
+<button 
+  aria-label="Add to Cart" 
+  aria-labelledby="addToCartLabel" 
+  aria-describedby="addToCartDescription">
+  Add to Cart
+</button>
+
+<!-- Associated elements for aria-labelledby and aria-describedby -->
+<span id="addToCartLabel">Add to Cart Button</span>
+<span id="addToCartDescription">Click to add the item to your shopping cart</span>
+```
+- `aria-label`: Provides an accessible name for the button.
+- `aria-labelledby`: Associates the button with another element that labels it.
+- `aria-describedby`: Provides additional information about the button.
 ```
 
 ---
@@ -1544,9 +1592,17 @@ html, body {
 ---
 
 ### **95. What is the difference between the `<meter>` and `<progress>` tags?**  
-| Feature  | `<meter>` | `<progress>` |
-|----------|----------|-------------|
-| Purpose  | Shows a value in a range | Shows progress towards a goal |
+### **📌 Comparison Table: `<meter>` vs. `<progress>` in HTML**
+
+| Feature | `<meter>` (Measurement) | `<progress>` (Task Progress) |
+|---------|----------------|----------------|
+| **Purpose** | Represents a **fixed value within a known range** (e.g., battery level, ratings, scores). | Represents **progress toward completing a task** (e.g., file upload, page load). |
+| **Dynamic Updates?** | ❌ No, it shows a **static value**. | ✅ Yes, can **dynamically update** as progress changes. |
+| **Visual Representation** | **Shows a bar** with optional thresholds (`low`, `high`, `optimum`). | **Displays a filled progress bar** that increases as progress is made. |
+| **Custom Styling?** | ✅ Can have **low, high, and optimum** values for color differentiation. | ❌ Cannot set **thresholds**, only updates based on `value`. |
+| **Required Attributes** | `value`, `min`, `max`, `low`, `high`, `optimum` (optional). | `value`, `max` (no `min` needed as it starts at `0`). |
+| **Use Case** | Battery level, quiz scores, ratings, CPU usage. | File uploads, page loading bars, download progress. |
+| **Can Be Styled with CSS?** | ✅ Yes, but limited to colors based on thresholds. | ✅ Yes, but customization is limited. |
 
 #### **Example:**
 ```html
@@ -1571,20 +1627,44 @@ Use `onsubmit="return false;"` in the `<form>` tag.
 ---
 
 ### **97. What are web manifest files in HTML?**  
-A **JSON file** that defines PWA behavior.
 
-#### **Example:**
+A **Web Manifest** is a **JSON file** that provides **metadata** about a web application, enabling it to behave like a **Progressive Web App (PWA)**.
+
+It **defines how the app appears when added to a home screen** (on mobile) and controls **its behavior** (like fullscreen mode, icons, and background color).  
+
+
+### **✅  Example of a Web Manifest File (`manifest.json`)**
 ```json
 {
-  "name": "MyApp",
-  "short_name": "App",
+  "name": "My PWA App",
+  "short_name": "PWA",
   "start_url": "/index.html",
-  "icons": [{ "src": "icon.png", "sizes": "192x192", "type": "image/png" }]
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0000ff",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
 ```
+The manifest file must be **linked** in the `<head>` section:
+```html
+<link rel="manifest" href="/manifest.json">
+```
 
----
-### **Intermediate-Level HTML Questions and Answers (Final Set)**  
+✅ **Enables Progressive Web Apps (PWA)** for mobile & desktop.  
+✅ **Enhances user experience** by making the app feel native.  
+✅ **Improves engagement** with home screen installation.  
+
 
 ---
 
@@ -1602,7 +1682,7 @@ if ('serviceWorker' in navigator) {
   .catch(err => console.log("Service Worker Error", err));
 }
 ```
-- The file `sw.js` handles caching and offline mode.
+The file `sw.js` handles caching and offline mode.
 
 ---
 
@@ -1636,15 +1716,6 @@ To improve **SEO (Search Engine Optimization)**:
 </head>
 ```
 
----
-
-## **🎯 Final Summary for Intermediate-Level HTML**
-✅ **Forms & Validation** (`pattern`, `autocomplete`, `required`, `aria-label`)  
-✅ **Web Performance** (`lazy loading`, `preload`, `prefetch`, `service workers`)  
-✅ **Security Best Practices** (`sandbox`, `ping`, `CORS`)  
-✅ **SEO & Accessibility** (`semantic HTML`, `meta tags`, `noscript`)  
-
----
 ### **Advanced-Level HTML Questions and Answers (Detailed Explanations)**  
 
 ---
@@ -1702,7 +1773,7 @@ Shadow DOM allows **encapsulating HTML, CSS, and JS** inside a component without
 <link rel="prefetch" href="next-page.html">
 <img src="large.jpg" loading="lazy">
 ```
-- **SEO Impact**: Lazy loading **can harm SEO** if images are not properly indexed. Use `noscript` fallback:
+**SEO Impact**: Lazy loading **can harm SEO** if images are not properly indexed. Use `noscript` fallback:
   ```html
   <noscript>
     <img src="large.jpg">
@@ -1874,20 +1945,6 @@ Reusable custom elements that use:
 ---
 
 ### **119. How can you dynamically change HTML content without JavaScript?**  
-Use the `<template>` tag.
-
-#### **Example:**
-```html
-<template id="myTemplate">
-  <p>Hello, Template!</p>
-</template>
-<script>
-  document.body.appendChild(document.getElementById("myTemplate").content.cloneNode(true));
-</script>
-```
-
----
-### **120. How can you dynamically change HTML content without JavaScript?**  
 
 While JavaScript is the most common way to update HTML dynamically, there are **non-JavaScript methods**:
 
@@ -1961,7 +2018,7 @@ While JavaScript is the most common way to update HTML dynamically, there are **
 ```
 ✅ **Real-time content changes.**  
 
-### **Difference Between HTML Entities and Escape Characters in HTML**  
+### 120. **Difference Between HTML Entities and Escape Characters in HTML**  
 
 Both **HTML entities** and **escape characters** are used to **represent special characters** in HTML, but they serve slightly different purposes.  
 
