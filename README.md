@@ -102,10 +102,20 @@ Example:
 <head>
   <title>My Website</title>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="HTML tutorial">
   <link rel="stylesheet" href="styles.css">
 </head>
 ```
+### **📌 What is `name="viewport"`?**
+The **viewport meta tag** tells the browser **how to control the page’s dimensions and scaling**, especially on **mobile devices**.
+Without the viewport tag:
+- **Mobile screens shrink the website** to fit the full page.
+- **Text appears tiny**, requiring zooming and scrolling.
+### **🔹 Breakdown:**
+- ✅ `name="viewport"` → Targets the viewport settings.
+- ✅ `content="width=device-width"` → Ensures the page width matches the screen width.
+- ✅ `content="initial-scale=1.0"` → Sets the default zoom level (1.0 means **no zoom**).
 
 ---
 
@@ -674,7 +684,7 @@ Example:
 | Tag | Purpose |
 |-----|---------|
 | `<script>` | Runs JavaScript. |
-| `<noscript>` | Displays alternative content if JavaScript is disabled. |
+| `<noscript>` | Displays alternative content if JavaScript is disabled. It is a fallback that ensures that all users can access content, regardless of their browser's script support. |
 
 Example:
 ```html
@@ -686,7 +696,7 @@ Example:
 ---
 
 ### **39. What are escape characters in HTML?**
-Escape characters prevent misinterpretation.
+Escape characters prevent misinterpretation. It Specifically refers to characters that need to be escaped in HTML because they have special meaning in HTML syntax.IT uses HTML Entities to do so.
 
 Examples:
 | Character | Escape Code |
@@ -705,6 +715,17 @@ Example:
 
 ### **40. What is the purpose of the `doctype` declaration?**
 The `<!DOCTYPE html>` declaration tells the browser **which version of HTML to use**.
+### **Why Do We Need `<!DOCTYPE html>` in HTML?**  
+
+The `<!DOCTYPE html>` declaration is required at the **beginning of an HTML document** to tell the browser how to **interpret and render the page**.  
+
+
+✅ **Ensures Standards Mode (Prevents Quirks Mode)**  
+- Browsers can operate in two modes:
+  1️⃣ **Standards Mode** – Correct, modern rendering of HTML & CSS.  
+  2️⃣ **Quirks Mode** – A backward-compatible mode for old websites.  
+- **Without `<!DOCTYPE html>`, the browser may switch to Quirks Mode**, causing unexpected rendering  and styling issues.   
+- The `<!DOCTYPE html>` declaration is part of the **HTML5 specification**. It helps the browser **know that the document follows HTML5 rules**.
 
 Example:
 ```html
@@ -741,18 +762,23 @@ Example:
 ```
 
 ---
-### **Beginner-Level HTML Questions and Answers (Continued)**
-
----
 
 ### **43. How do you open a link in a new tab?**
 Use the `target="_blank"` attribute inside the `<a>` tag.
+[![Edit HTML Target Types](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/unruffled-lehmann-z85f3d)
 
 Example:
 ```html
 <a href="https://example.com" target="_blank">Visit Example</a>
 ```
-- `target="_blank"` opens the link in a new tab.
+
+
+| Target Attribute | Behavior Without iframe (Normal Page) | Behavior Inside Single iframe | Behavior Inside Nested iframe (Multiple Levels) |
+|-----------------|---------------------------------|--------------------------|---------------------------------|
+| **_self**  | Opens the link in the **same tab/window** | Opens the link in the **same iframe** | Opens the link in the **same nested iframe** |
+| **_blank** | Opens the link in a **new tab or window** | Opens the link in a **new tab or window** | Opens the link in a **new tab or window** |
+| **_parent** | Same as `_self`, since no parent exists | Opens the link in the **parent document** (exits the current iframe). If no parent behaves as _top. | Opens the link **one level up** (exits the nested iframe but stays in the first-level iframe). |
+| **_top** | Same as `_self`, since no frames exist | Opens the link in the **entire browser window**, breaking out of the iframe | Opens the link in the **entire browser window**, breaking out of all frames |
 
 ---
 
@@ -853,9 +879,7 @@ Favicons appear in the browser tab.
 
 
 
-### **Intermediate-Level HTML Questions and Answers (Detailed Explanations)**  
-
----
+## **Intermediate-Level HTML Questions and Answers (Detailed Explanations)**  
 
 ### **51. What is the difference between `data-` attributes and `id` or `class` attributes?**  
 - `data-` attributes store custom data inside HTML elements.
@@ -866,13 +890,14 @@ Favicons appear in the browser tab.
 ```html
 <div id="unique" class="group" data-user="JohnDoe">User Profile</div>
 ```
-- `data-user="JohnDoe"` can be accessed using JavaScript:  
+`data-user="JohnDoe"` can be accessed using JavaScript:  
   ```js
   let user = document.querySelector("div").dataset.user;
   console.log(user); // Output: JohnDoe
   ```
-
 ---
+To see this in working , some CSS and JS knowledge is needed . If you feel comfortable check the follwing code :
+[![Edit HTML data- v/s id v/s class](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/74f5jy)
 
 ### **52. How do you create a modal in pure HTML?**  
 Use the `<dialog>` tag for a built-in modal.
@@ -893,6 +918,8 @@ Use the `<dialog>` tag for a built-in modal.
 ### **53. What is `rel="noopener"` and `rel="noreferrer"` in links?**  
 - `rel="noopener"` prevents security issues in `target="_blank"`.  
 - `rel="noreferrer"` prevents the sending of the **referrer URL**.
+
+These are more or less handled in the modern browsers but to add a layer of security from end.
 
 #### **Example:**
 ```html
@@ -987,23 +1014,39 @@ Attributes **applicable to all elements**, such as:
 - `tabindex`
 - `draggable`
 
+#### **📌 Understanding How `tabindex` Affects Keyboard Navigation**
+The **`tabindex`** attribute controls the order in which elements receive focus when pressing the **Tab key**.
+
+#### **🚀 Best Practices for `tabindex`**
+| `tabindex` Value | Effect | Use Case |
+|------------------|--------|----------|
+| **`0`** (default) | Natural HTML order | Best for standard focus behavior. |
+| **`1, 2, ...`** | Custom tab order | Avoid unless needed; can confuse users. |
+| **Decreasing Order (e.g., `2, 1`)** | Focus moves in reverse order | Bad UX, avoid. |
+| **`-1`** | Removes tab focus but allows JS focus | Use for elements that should not be keyboard-navigable. |
+
+
 #### **Example:**
 ```html
 <p title="Tooltip">Hover over me</p>
 ```
+A detailed example :
+[![Edit HTML Global Variables](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/html-global-variables-h4nzk4)
 
 ---
 
-### **62. What is the difference between `hidden` and `display: none;`?**  
-| Feature | `hidden` Attribute | `display: none;` (CSS) |
-|---------|-----------------|----------------|
-| Effect | Hides the element | Hides and removes from layout |
-| Accessible? | Yes (via JS) | No |
+### **62. What is the difference between `hidden` and `visibilty: hidden;`?**  
+| Feature | `hidden` (HTML Attribute) | `visibility: hidden;` (CSS) |
+|----------|------------------|------------------|
+| **Removes element from layout?** | ✅ Yes | ❌ No |
+| **Still exists in the DOM?** | ✅ Yes | ✅ Yes |
+| **Takes up space?** | ❌ No | ✅ Yes |
+| **Can be interacted with?** | ❌ No | ✅ Yes (invisible but clickable) |
 
 #### **Example:**
 ```html
 <p hidden>This is hidden.</p>
-<p style="display: none;">This is also hidden.</p>
+<p style="visibility: hidden;">This is also hidden.</p>
 ```
 
 ---
@@ -1102,6 +1145,43 @@ It **restricts** iframe behavior.
 ```html
 <iframe src="example.com" sandbox></iframe>
 ```
+### **📌 What Happens When You Use `<iframe src="https://example.com" sandbox></iframe>`?**  
+When you add the `sandbox` attribute to an `<iframe>`, **all restrictions are applied by default** unless you explicitly allow specific behaviors.
+
+### **✅ What `sandbox` Restricts (By Default)**
+| **Feature** | **Blocked?** | **Reason** |
+|------------|--------------|------------|
+| **JavaScript Execution** | ✅ Blocked | Prevents scripts inside the iframe from running. |
+| **Form Submissions** | ✅ Blocked | Blocks `<form>` submissions inside the iframe. |
+| **Popups (`window.open()`)** | ✅ Blocked | Prevents the iframe from opening new windows/tabs. |
+| **Access to Parent Window** | ✅ Blocked | iframe **cannot modify or access** the parent page. |
+| **Cookies & Local Storage** | ✅ Blocked | iframe **cannot access** `document.cookie` or `localStorage`. |
+| **Plugins (Flash, Java, etc.)** | ✅ Blocked | External plugins are disabled for security. |
+
+🔹 **Example Usage:**
+```html
+<iframe src="https://example.com" sandbox></iframe>
+```
+✅ **Effect:** **Completely restricts** the embedded page.
+
+
+### **🚨 What Happens If You **Don't** Use `sandbox`?**
+If you remove `sandbox`, the iframe **runs with full permissions**, meaning:
+- JavaScript inside the iframe **can run and interact** with the page.
+- The iframe **can submit forms, open popups, and access cookies**.
+- **Less secure**, especially if embedding **untrusted content**.
+
+
+
+### **✅ Customizing `sandbox` Permissions**
+Instead of **completely restricting** the iframe, you can **allow specific features**:
+```html
+<iframe src="https://example.com" sandbox="allow-scripts allow-popups"></iframe>
+```
+### **🚀 When Should You Use `sandbox`?**
+✅ **When embedding third-party content** (e.g., Ads, Widgets, External Websites).  
+✅ **When preventing malicious behavior** (e.g., Cross-Site Scripting - XSS).  
+✅ **When limiting iframe permissions for security**.  
 
 ---
 
@@ -1135,8 +1215,29 @@ Loads different images based on screen size.
 
 #### **Example:**
 ```html
-<img src="small.jpg" srcset="large.jpg 1024w">
+<img src="low.jpg" 
+     srcset="medium.jpg 768w, high.jpg 1200w, ultra.jpg 1920w"
+     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 50vw"
+     alt="Optimized Image">
+
 ```
+
+---
+
+The **`srcset`** attribute provides a list of **image file names** and their corresponding **widths (w)**.
+
+📌 **But without `sizes`, the browser makes assumptions about how big the image should be on the screen**.  
+This can **waste bandwidth** if a larger image is chosen when a smaller one is enough.
+
+
+| Attribute | Purpose |
+|-----------|---------|
+| **`srcset`** | Provides **multiple image options** with defined widths (`w`). |
+| **`sizes`** | Defines **how much space the image will occupy** on different screens. |
+
+✅ **Without `sizes`**, the browser **guesses the best image** (not always optimized).  
+✅ **With `sizes`**, the browser knows **exactly how wide the image will be** and picks the best match.
+
 
 ---
 
@@ -1148,34 +1249,67 @@ Use `loading="lazy"`.
 <img src="image.jpg" loading="lazy">
 ```
 
----
-
-### **🎯 Intermediate-Level HTML Summary**  
-✅ **Form Validations** (`pattern`, `required`, `autocomplete`)  
-✅ **Interactive Elements** (`dialog`, `details`, `summary`)  
-✅ **Performance Optimization** (`lazy loading`, `srcset`)  
-✅ **Accessibility & SEO** (`semantic elements`, `spellcheck`)  
-
----
-
-### **Intermediate-Level HTML Questions and Answers (Continued)**  
+| Feature | **`lazy` (Lazy Loading)** | **`eager` (Eager Loading)** |
+|----------|----------------|----------------|
+| **When Does It Load?** | Loads **only when needed** (when entering viewport). | Loads **immediately** when the page starts rendering. |
+| **Performance Impact** | ✅ Improves page speed by reducing initial load time. | ❌ Can slow down initial load if many large images are loaded at once. |
+| **Best For?** | Images **below the fold** (not immediately visible). | Images **above the fold** (visible as soon as the page loads). |
+| **SEO & UX Impact** | ✅ Helps with SEO & page speed optimization. | ❌ Can increase load time but ensures important visuals appear instantly. |
 
 ---
 
 ### **76. What is the difference between `preload` and `prefetch`?**  
 Both are used for **resource loading**, but they serve different purposes.
 
-| Feature | `preload` | `prefetch` |
-|---------|----------|-----------|
-| Purpose | Load essential resources early | Fetch resources for future pages |
-| When is it used? | During page load | When navigating to a new page |
-| Improves | Page rendering speed | Future navigation speed |
 
-#### **Example:**
+### **✅ 1. `preload`: Load Critical Resources Early**  
+- **Prioritizes loading important assets** (fonts, images, scripts, stylesheets, etc.) **before they are needed**.  
+- The browser **loads the resource immediately** and makes it available **as soon as the page requires it**.  
+- Useful for **above-the-fold content** or **critical dependencies** that must be available ASAP.
+
+### **🚀 Example: Preloading a Font**
 ```html
-<link rel="preload" href="styles.css" as="style">
+<link rel="preload" href="fonts/custom-font.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+```
+
+### **🔹 Common Use Cases for `preload`**
+| Use Case | Why Use `preload`? |
+|----------|------------------|
+| **Custom Web Fonts** (`woff2`, `ttf`) | Avoids **FOUT**, ensures text appears with the correct font immediately. |
+| **Above-the-Fold Images** | Ensures hero/banner images **load faster**. |
+| **CSS/JavaScript Files** | Prioritizes important stylesheets and scripts. |
+| **Background Videos** | Ensures background videos are **ready before playback starts**. |
+
+### **✅ 2. `prefetch`: Load Future Resources in Advance**  
+- **Loads a resource in the background** for **future use** (low priority).  
+- The browser **only fetches the resource when idle**, so it doesn’t slow down the main page load.  
+- Useful for **anticipating future navigation** (e.g., preloading an asset for the next page).
+
+### **🚀 Example: Prefetching a Next-Page Resource**
+```html
 <link rel="prefetch" href="next-page.html">
 ```
+✅ **How It Works:**  
+- The browser **downloads `next-page.html` in the background**.  
+- When the user clicks a link to `next-page.html`, it **loads instantly** because it's already cached.  
+
+### **🔹 Common Use Cases for `prefetch`**
+| Use Case | Why Use `prefetch`? |
+|----------|------------------|
+| **Next Page in a Flow** | Improves user experience by preloading the next page before they navigate. |
+| **Heavy Images in Upcoming Sections** | Loads images in the background **before they are needed**. |
+| **Scripts for Future Interactions** | Fetches JavaScript needed **after user interaction**. |
+
+
+
+## **📌 Key Differences Between `preload` and `prefetch`**
+| Feature | `preload` | `prefetch` |
+|---------|----------|------------|
+| **When Does It Load?** | **Immediately**, before it's needed | **In the background**, for future use |
+| **Priority Level?** | **High Priority** | **Low Priority** |
+| **Blocks Page Rendering?** | ✅ Yes (Can affect load time) | ❌ No (Loads when the browser is idle) |
+| **Best For?** | Critical assets (fonts, CSS, above-the-fold images) | Future assets (next page, upcoming scripts) |
+
 
 ---
 
