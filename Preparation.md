@@ -665,7 +665,16 @@ Example at the end of `<body>`:
 - **Place `<script>` at the end of `<body>`** → If neither `async` nor `defer` is used.  
 - ❌ **Avoid placing scripts in `<head>` without `defer` or `async`** unless absolutely necessary.  
 
-#### Noted -  The following code won't work because document.getElementById will return null as HTML is not loaded . So best to use script tag at the end of the body tag.
+#### Noted -  The following code won't work even if we have defer in the script. 
+There are two options to resolve this - 1. Move the script at the end of body tag 2. Use external script file and import it with defer
+
+Question - Why will it work with defer if the script is outside of the page and it won't in the example
+Reason - One of the main benefits of defer is that it allows scripts to load in parallel without blocking rendering.
+However, this benefit applies only to external scripts.
+For inline scripts:
+- The browser cannot download anything in parallel (since the script is already part of the document).
+- Instead of improving performance, it might actually introduce execution order issues.
+  
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -673,7 +682,7 @@ Example at the end of `<body>`:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Component Example</title>
-    <script >
+    <script defer >
        
         document.getElementById("button1").addEventListener("click", function(){
            alert("Hello World");})
