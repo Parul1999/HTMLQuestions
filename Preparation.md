@@ -55,7 +55,7 @@ Example:
 | Case Sensitivity | Not case-sensitive (`<P>` and `<p>` are same) | Case-sensitive (`<p>` only) |
 | Closing Tags | Some tags can be left open | Every tag must be closed |
 | Formatting | More flexible | More strict |
-| Self-Closing Tags | `<br>`, `<img>` allowed | `<br />`, `<img />` required |
+| Self-Closing /Empty Tags | `<br>`, `<img>` allowed | `<br />`, `<img />` required |
 
 ---
 
@@ -2633,5 +2633,24 @@ customElements.define("shadow-element", ShadowElement);
 
 ---
 
+### HTML Element vs Tag vs Attribute
+![alt text](image-2.png)
 
 
+### What is the difference between `<link>` and `<a>` tag?
+
+![alt text](image-3.png)
+
+### HTML vs HTML5
+![alt text](image-4.png)
+
+### Meta tag and its types
+![alt text](image-5.png)
+
+### Meter v/s Progress
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+![alt text](image-9.png)
